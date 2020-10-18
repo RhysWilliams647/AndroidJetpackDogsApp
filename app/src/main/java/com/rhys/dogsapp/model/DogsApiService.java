@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class DogsApiService {
     private static final String BASE_URL = "https://raw.githubusercontent.com/";
 
-    private DogsApi api;
+    private IDogsApi api;
 
     /**
      *
@@ -21,7 +21,7 @@ public class DogsApiService {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
-                .create(DogsApi.class);
+                .create(IDogsApi.class);
     }
 
     public Single<List<DogBreed>> getDogs(){

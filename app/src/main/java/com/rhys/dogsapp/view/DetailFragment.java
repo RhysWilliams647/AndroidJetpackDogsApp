@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.rhys.dogsapp.R;
+import com.rhys.dogsapp.util.Util;
 import com.rhys.dogsapp.viewmodel.DetailViewModel;
 
 import butterknife.BindView;
@@ -66,11 +67,13 @@ public class DetailFragment extends Fragment {
 
     private void observeViewModel(){
         viewModel.dog.observe(this, dog -> {
-           if(dog != null){
+           if(dog != null && getContext() != null){
                name.setText(dog.dogBreed);
                purpose.setText(dog.bredFor);
                temperament.setText(dog.temperament);
                lifespan.setText(dog.lifeSpan);
+               if(dog.imageUrl != null)
+                   Util.loadImage(image, dog.imageUrl, Util.getProgressDrawable(getContext()));
            }
         });
     }

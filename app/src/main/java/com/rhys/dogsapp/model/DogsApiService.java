@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class DogsApiService {
     private static final String BASE_URL = "https://raw.githubusercontent.com/";
 
-    private IDogsApi api;
+    private final IDogsApi api;
 
     /**
      *

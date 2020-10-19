@@ -9,7 +9,7 @@ public class SharedPreferencesHelper {
 
     private static final String PREF_TIME = "Pref Time";
     private static SharedPreferencesHelper instance;
-    private SharedPreferences prefs;
+    private final SharedPreferences prefs;
 
     public static SharedPreferencesHelper getInstance(Context context){
         if(instance == null)

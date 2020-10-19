@@ -12,6 +12,7 @@ import com.rhys.dogsapp.model.DogBreed;
 import com.rhys.dogsapp.model.DogDatabase;
 import com.rhys.dogsapp.model.DogsApiService;
 import com.rhys.dogsapp.model.IDogDao;
+import com.rhys.dogsapp.util.NotificationsHelper;
 import com.rhys.dogsapp.util.SharedPreferencesHelper;
 
 import java.util.ArrayList;
@@ -134,6 +135,8 @@ public class ListViewModel extends AndroidViewModel {
             dogsRetrieved(dogBreeds);
             prefHelper.saveUpdateTime(System.nanoTime());
             Toast.makeText(getApplication(), "Dogs retrieved remotely", Toast.LENGTH_SHORT).show();
+            NotificationsHelper.getInstance(getApplication())
+                    .createNotification();
         }
     }
 

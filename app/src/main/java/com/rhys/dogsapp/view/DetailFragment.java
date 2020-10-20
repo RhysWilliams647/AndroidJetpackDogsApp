@@ -1,5 +1,7 @@
 package com.rhys.dogsapp.view;
 
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -12,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.palette.graphics.Palette;
 
+import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -117,7 +120,12 @@ public class DetailFragment extends Fragment {
                 ((MainActivity) getActivity()).checkSmsPermission();
             }
         } else if (item.getItemId() == R.id.action_share) {
-            Toast.makeText(getContext(), "Action share", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Check out this dog breed");
+            intent.putExtra(Intent.EXTRA_TEXT, currentDog.dogBreed + " bred for " + currentDog.bredFor);
+            intent.putExtra(Intent.EXTRA_STREAM, currentDog.imageUrl);
+            startActivity(Intent.createChooser(intent, "Share with"));
         }
 
         return super.onOptionsItemSelected(item);
@@ -150,6 +158,9 @@ public class DetailFragment extends Fragment {
     }
 
     private void sendSms(SmsInfo smsInfo){
-
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0, intent, 0);
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(smsInfo.to, null, smsInfo.text, pendingIntent, null);
     }
 }
